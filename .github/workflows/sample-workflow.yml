@@ -1,12 +1,16 @@
 name: Basic workflow
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      sample_input:
+        description: 'Welcome to GitHub Actions'
+        required: true
+        type: string
+        default: 'Hello, Github Action!'
+
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Run a one-line script
-        run: echo "Hello, World!"
+  call-reusable-workflow:
+    uses: ./.github/workflows/build-template.yml
+    with:
+      description: ${{ github.event.inputs.sample_input }}

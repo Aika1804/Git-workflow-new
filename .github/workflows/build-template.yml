@@ -1,0 +1,15 @@
+name: Template to ceate a reusable workflow
+on:
+  workflow_call:
+    inputs:
+        description:
+          description: 'Pass the value workflow dispatch'
+          required: true
+          type: string
+
+jobs:
+    process:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Print the description
+            run: echo "${{ inputs.description }}"      
