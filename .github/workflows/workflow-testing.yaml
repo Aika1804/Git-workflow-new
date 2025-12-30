@@ -1,0 +1,17 @@
+name: Basic workflow
+on:
+    workflow_dispatch:
+
+jobs:
+    deploy-testing:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print message
+              run: echo "This is a basic workflow for testing purposes."
+    validate:
+        needs: deploy-testing
+        runs-on: ubuntu-latest
+        steps:
+            - name: Validate deployment
+              if: success()
+              run: echo "Validation step completed."
