@@ -1,13 +1,31 @@
-name: Basic workflow
-on:
+name: Deployment in Ubuntu
+run-name: ${{ github.workflow }} - ${{ github.run_id }}
+on: 
     workflow_dispatch:
+        inputs:
+            logLevel:
+                description: 'Log level for the deployment'
+                required: true
+                default: 'info'
+                type: choice
+                options:
+                    - 'debug'
+                    - 'info'
+                    - 'warn'
+                    - 'error'
+            tags:
+                description: 'This is a log level for testing purposes'
+                required: true
+                type: string 
 
 jobs:
     deploy-testing:
         runs-on: ubuntu-latest
         steps:
             - name: Print message
-              run: echo "This is a basic workflow for testing purposes."
+              run: |
+               echo "Deploying the status ${{github.event.inputs.logLevel}} with tags ${{github.event.inputs.tags}}" 
+              
     validate:
         needs: deploy-testing
         runs-on: ubuntu-latest
