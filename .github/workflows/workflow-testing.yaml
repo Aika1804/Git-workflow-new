@@ -1,5 +1,5 @@
 name: Deployment in Ubuntu
-run-name: ${{ github.workflow }} - ${{ github.run_id }}
+run-name: ${{ inputs.tags }} - ${{ github.run_id }}
 on: 
     workflow_dispatch:
         inputs:
@@ -25,7 +25,7 @@ jobs:
             - name: Print message
               run: |
                echo "Deploying the status ${{github.event.inputs.logLevel}} with tags ${{github.event.inputs.tags}}" 
-              
+               echo exit 1
     validate:
         needs: deploy-testing
         runs-on: ubuntu-latest
